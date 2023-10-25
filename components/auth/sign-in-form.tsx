@@ -28,7 +28,7 @@ const SignInForm = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col space-y-2 text-center">
+      <div className="flex flex-col pb-2 space-y-1 text-left">
         <h1 className="text-2xl font-semibold tracking-tight">Sign In</h1>
         <p className="text-sm text-muted-foreground">
           Enter your email and password to sign in.
@@ -36,9 +36,9 @@ const SignInForm = () => {
       </div>
       <form
         onSubmit={handleCredentialsLogin}
-        className="flex flex-col gap-2 pb-2 border-b"
+        className="flex flex-col gap-2 pb-4 border-b"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <label htmlFor="email" className="text-xs">
             Email
           </label>
@@ -48,7 +48,7 @@ const SignInForm = () => {
             }}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <label htmlFor="password" className="text-xs">
             Password
           </label>
@@ -63,7 +63,12 @@ const SignInForm = () => {
         </Button>
       </form>
 
-      <Button onClick={handleGoogleLogin} type="button" variant={"outline"}>
+      <Button
+        onClick={handleGoogleLogin}
+        type="button"
+        variant={"outline"}
+        className="mt-2"
+      >
         Google
       </Button>
       <Button onClick={handleGithubLogin} type="button" variant={"outline"}>
