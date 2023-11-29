@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -52,7 +53,11 @@ const SignUpForm = () => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <Link href="/">Boilerplate</Link>
+        <Link href={`/`}>
+          <div className="relative w-16 h-16">
+            <Image src={`/images/logo.png`} alt="Logo" layout="fill"></Image>
+          </div>
+        </Link>
         <div className="flex flex-col pb-2 space-y-1 text-left">
           <h1 className="text-xl font-semibold tracking-tight">
             Create an account

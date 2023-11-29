@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { getErrorMessage } from "@/lib/utils";
+import Image from "next/image";
 
 const SignInForm = () => {
   const router = useRouter();
@@ -37,13 +38,17 @@ const SignInForm = () => {
     e.preventDefault();
     let response = await signIn("github", {
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/setting",
     });
   };
 
   return (
     <div className="flex flex-col gap-2">
-      <Link href="/">Boilerplate</Link>
+      <Link href={`/`}>
+        <div className="relative w-16 h-16">
+          <Image src={`/images/logo.png`} alt="Logo" layout="fill"></Image>
+        </div>
+      </Link>
       <div className="flex flex-col pb-2 space-y-1 text-left">
         <h1 className="text-xl font-semibold tracking-tight">Sign In</h1>
         <p className="text-sm text-muted-foreground">

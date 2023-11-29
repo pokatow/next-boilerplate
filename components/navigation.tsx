@@ -12,7 +12,11 @@ export default function Navigation() {
 
   return (
     <nav className="fixed top-0 z-50 flex items-center justify-between w-full px-4 py-2 border-b border-border bg-background ">
-      <Link href={`/`}>Boilerplate</Link>
+      <Link href={`/`}>
+        <div className="relative w-12 h-12">
+          <Image src={`/images/logo.png`} alt="Logo" layout="fill"></Image>
+        </div>
+      </Link>
       {session ? (
         <div className="relative flex">
           <button
