@@ -10,8 +10,17 @@ const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleCredentialsLogin = (e: React.FormEvent) => {
+  const handleCredentialsLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    const res = await signIn("credentials", {
+      email: email,
+      password: password,
+      redirect: true,
+      callbackUrl: "/",
+      // callbackUrl: `${window.location.origin}/dashboard`,
+    });
+
+    console.log(res);
   };
 
   const handleGoogleLogin = (e: React.MouseEvent) => {
@@ -53,6 +62,7 @@ const SignInForm = () => {
             Password
           </label>
           <Input
+            type="password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -63,7 +73,7 @@ const SignInForm = () => {
         </Button>
       </form>
 
-      <Button
+      {/* <Button
         onClick={handleGoogleLogin}
         type="button"
         variant={"outline"}
@@ -73,7 +83,7 @@ const SignInForm = () => {
       </Button>
       <Button onClick={handleGithubLogin} type="button" variant={"outline"}>
         Github
-      </Button>
+      </Button> */}
     </div>
   );
 };

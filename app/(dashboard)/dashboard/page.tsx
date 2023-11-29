@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 
 export default function Auth() {
   const session = getServerSession();
+  console.log(session);
   return <div className="flex-1 p-4 ">Dashboard</div>;
 }

@@ -6,23 +6,43 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleCredentialsLogin = (e: React.FormEvent) => {
+  const handleCredentialsLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    let res = await fetch("/api/sign-up", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    let data = await res.json();
+
+    if (res.ok) {
+      router.push("/auth/sign-in");
+    }
+    console.log(data);
   };
-  const handleGoogleLogin = (e: React.MouseEvent) => {
+  const handleGoogleLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
   };
   const handleGithubLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
-    let response = await signIn("github", {
+    let res = await signIn("github", {
       redirect: true,
       callbackUrl: "/",
     });
+    console.log(res);
   };
 
   return (
@@ -55,6 +75,7 @@ const SignUpForm = () => {
               Password
             </label>
             <Input
+              type="password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -64,7 +85,7 @@ const SignUpForm = () => {
             Create
           </Button>
         </form>
-        <Button
+        {/* <Button
           onClick={handleGoogleLogin}
           type="button"
           variant={"outline"}
@@ -74,7 +95,7 @@ const SignUpForm = () => {
         </Button>
         <Button onClick={handleGithubLogin} type="button" variant={"outline"}>
           Github
-        </Button>
+        </Button> */}
       </div>
     </>
   );
