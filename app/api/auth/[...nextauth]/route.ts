@@ -27,7 +27,6 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) return null;
         try {
           const user = await signIn(credentials.email, credentials.password);
-          console.log(user);
           return user;
         } catch (e) {
           console.error(e);

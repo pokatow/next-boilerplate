@@ -12,9 +12,12 @@ const SignUpForm = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleCredentialsLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+
     let res = await fetch("/api/sign-up", {
       method: "POST",
       headers: {
@@ -26,30 +29,32 @@ const SignUpForm = () => {
       }),
     });
 
-    let data = await res.json();
-
     if (res.ok) {
-      router.push("/auth/sign-in");
+      return router.push("/auth/sign-in");
+    } else {
+      let data = await res.json();
+      setErrorMessage(data.error);
     }
-    console.log(data);
   };
+
   const handleGoogleLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
   };
+
   const handleGithubLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
     let res = await signIn("github", {
       redirect: true,
       callbackUrl: "/",
     });
-    console.log(res);
   };
 
   return (
     <>
       <div className="flex flex-col gap-2">
+        <Link href="/">Boilerplate</Link>
         <div className="flex flex-col pb-2 space-y-1 text-left">
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="text-xl font-semibold tracking-tight">
             Create an account
           </h1>
           <p className="text-sm text-muted-foreground ">
@@ -58,13 +63,14 @@ const SignUpForm = () => {
         </div>
         <form
           onSubmit={handleCredentialsLogin}
-          className="flex flex-col gap-2 pb-4 border-b"
+          className="flex flex-col gap-2 pb-4"
         >
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="text-xs">
               Email
             </label>
             <Input
+              type="email"
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
@@ -81,7 +87,10 @@ const SignUpForm = () => {
               }}
             />
           </div>
-          <Button type="submit" variant={"default"}>
+          {errorMessage && (
+            <span className="text-sm text-red-500">{errorMessage}</span>
+          )}
+          <Button type="submit" variant={"default"} className="mt-2">
             Create
           </Button>
         </form>
