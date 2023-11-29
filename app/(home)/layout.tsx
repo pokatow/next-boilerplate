@@ -4,7 +4,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Navigation></Navigation>
-      <main className="flex flex-col w-full min-h-screen pt-16">
+      <main className="flex flex-col w-full min-h-screen mt-14 relative">
         {children}
       </main>
     </>

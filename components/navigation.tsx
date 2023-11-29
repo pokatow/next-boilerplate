@@ -11,13 +11,13 @@ export default function Navigation() {
   const [showDropDown, setshowDropDown] = useState(false);
 
   return (
-    <nav className="fixed top-0 flex items-center justify-between w-full p-2 border-b border-border bg-background ">
+    <nav className="fixed top-0 z-50 flex items-center justify-between w-full px-4 py-2 border-b border-border bg-background ">
       <Link href={`/`}>Boilerplate</Link>
       {session ? (
         <div className="relative flex">
           <button
             onClick={() => setshowDropDown(!showDropDown)}
-            className="relative flex items-center justify-center w-12 h-12 overflow-hidden border rounded-full bg-gradient-to-t from-blue-500 to-indigo-500"
+            className="relative flex items-center justify-center w-10 h-10 overflow-hidden border rounded-full bg-gradient-to-t from-blue-500 to-indigo-500"
           ></button>
 
           {showDropDown && (
@@ -27,24 +27,18 @@ export default function Navigation() {
               }}
               className="absolute right-0 flex flex-col p-1 overflow-hidden text-sm border rounded shadow w-36 top-16 bg-background border-border"
             >
-              <span className="pb-2 font-semibold">
-                {" "}
-                {session.user?.name ?? session.user?.email}
-              </span>
-              <a
-                href="/dashboard"
-                className="p-2 text-center rounded hover:bg-neutral-200"
-              >
-                Dashboard
-              </a>
-              <button
+              <Button asChild variant={"secondary"}>
+                <Link href="/setting">Setting</Link>
+              </Button>
+              <Button
+                variant={"outline"}
                 onClick={() => {
                   signOut();
                 }}
-                className="p-2 rounded hover:bg-neutral-200"
+                className="p-2 rounded "
               >
                 Sign Out
-              </button>
+              </Button>
             </div>
           )}
         </div>

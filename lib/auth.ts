@@ -15,6 +15,8 @@ export const signIn: SignInFn = async (email, password) => {
     user.password = "";
     return user;
   } else {
-    throw new Error("User Not Found!");
+    throw new Error(
+      "The email and password you entered doesn't match our records!"
+    );
   }
 };

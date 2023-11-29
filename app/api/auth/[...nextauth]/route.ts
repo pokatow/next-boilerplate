@@ -5,6 +5,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { getErrorMessage } from "@/lib/utils";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -29,8 +30,7 @@ export const authOptions: NextAuthOptions = {
           const user = await signIn(credentials.email, credentials.password);
           return user;
         } catch (e) {
-          console.error(e);
-          return null;
+          throw new Error(getErrorMessage(e));
         }
       },
     }),

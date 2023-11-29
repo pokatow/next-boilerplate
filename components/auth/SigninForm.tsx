@@ -5,14 +5,17 @@ import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { getErrorMessage } from "@/lib/utils";
 
 const SignInForm = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleCredentialsLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
     const response = await signIn("credentials", {
       email: email,
       password: password,
@@ -21,6 +24,8 @@ const SignInForm = () => {
 
     if (response?.ok) {
       return router.push("/dashboard");
+    } else {
+      setErrorMessage(getErrorMessage(response?.error));
     }
   };
 
@@ -71,6 +76,9 @@ const SignInForm = () => {
             }}
           />
         </div>
+        {errorMessage && (
+          <span className="text-xs text-red-500">{errorMessage}</span>
+        )}
         <Button type="submit" variant={"default"} className="mt-2">
           Sign In
         </Button>

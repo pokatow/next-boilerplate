@@ -18,7 +18,7 @@ const SignUpForm = () => {
     e.preventDefault();
     setErrorMessage("");
 
-    let res = await fetch("/api/sign-up", {
+    let response = await fetch("/api/sign-up", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,10 +29,10 @@ const SignUpForm = () => {
       }),
     });
 
-    if (res.ok) {
+    if (response.ok) {
       return router.push("/auth/sign-in");
     } else {
-      let data = await res.json();
+      let data = await response.json();
       setErrorMessage(data.error);
     }
   };
@@ -88,7 +88,7 @@ const SignUpForm = () => {
             />
           </div>
           {errorMessage && (
-            <span className="text-sm text-red-500">{errorMessage}</span>
+            <span className="text-xs text-red-500">{errorMessage}</span>
           )}
           <Button type="submit" variant={"default"} className="mt-2">
             Create
